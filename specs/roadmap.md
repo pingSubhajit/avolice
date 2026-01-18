@@ -55,12 +55,15 @@ Acceptance:
 - `apps/web` builds and runs locally.
 - Turbo tasks run for `lint`, `typecheck`, `build` (even if minimal initially).
 
-### 1.2 Minimal CI and local conventions
+### 1.2 Minimal CI and local conventions (no GitHub Actions)
 
-- Add consistent formatting/linting across the workspace (keep Biome if you like it).
+- Add consistent formatting/linting across the workspace using the Biome configuration in the root.
 - Establish env variable strategy:
-  - `.env.example` in `apps/web` and `apps/mobile`
-  - document required env vars in `specs/tech.md` or `README.md`
+  - `env.example` in `apps/web` and `apps/mobile` (dotfiles may be ignored by tooling; use this as the canonical template)
+- Web CI is handled by **Vercel**:
+  - Preview deployments are the “CI signal” (build/typecheck/lint must pass via repo scripts).
+  - Configure the Vercel project’s root directory to `apps/web`.
+- Mobile CI is handled later via **EAS** (not part of this phase).
 
 Acceptance:
 - A clean “bootstrap” experience for a new developer.
