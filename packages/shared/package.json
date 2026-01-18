@@ -1,6 +1,5 @@
 {
-  "name": "@avolice/shared",
-  "version": "0.0.0",
-  "private": true
+	"name": "@avolice/shared",
+	"version": "0.0.0",
+	"private": true
 }
-

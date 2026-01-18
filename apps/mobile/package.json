@@ -1,7 +1,6 @@
 {
-  "name": "@avolice/mobile",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {}
+	"name": "@avolice/mobile",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {}
 }
-

@@ -1,6 +1,5 @@
 {
-  "name": "@avolice/tailwind-config",
-  "version": "0.0.0",
-  "private": true
+	"name": "@avolice/tailwind-config",
+	"version": "0.0.0",
+	"private": true
 }
-

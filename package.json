@@ -1,28 +1,27 @@
 {
-  "name": "avolice",
-  "version": "0.1.0",
-  "private": true,
-  "packageManager": "pnpm@9.0.0",
-  "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "start": "turbo start",
-    "lint": "biome check .",
-    "format": "biome format --write .",
-    "typecheck": "turbo typecheck"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.2.0",
-    "turbo": "^2.0.0",
-    "typescript": "^5"
-  },
-  "ignoreScripts": [
-    "sharp",
-    "unrs-resolver"
-  ],
-  "trustedDependencies": [
-    "sharp",
-    "unrs-resolver"
-  ]
+	"name": "avolice",
+	"version": "0.1.0",
+	"private": true,
+	"packageManager": "pnpm@9.0.0",
+	"scripts": {
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"start": "turbo start",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "turbo typecheck"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.0",
+		"turbo": "^2.0.0",
+		"typescript": "^5"
+	},
+	"ignoreScripts": [
+		"sharp",
+		"unrs-resolver"
+	],
+	"trustedDependencies": [
+		"sharp",
+		"unrs-resolver"
+	]
 }
-
