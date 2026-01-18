@@ -14,7 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Avolice",
-  description: "AI-first personal orchestration agent",
+  description: "AI-first personal orchestration agent that turns routines into nested, rule-driven workflows " +
+      "and keeps them aligned with real calendar, so you always know the next action even when the day changes.",
 };
 
 export default function RootLayout({
