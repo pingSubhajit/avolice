@@ -24,6 +24,9 @@ dist/
 # turbo
 .turbo/
 
+# expo (mobile)
+.expo/
+
 # pnpm
 .pnpm-store/
 

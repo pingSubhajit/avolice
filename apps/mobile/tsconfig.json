@@ -1,22 +1,13 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@avolice/shared": [
-        "../../packages/shared/src/index.ts"
-      ],
-      "@avolice/shared/*": [
-        "../../packages/shared/src/*"
-      ]
-    }
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"strict": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./*"],
+			"@avolice/shared": ["../../packages/shared/src/index.ts"],
+			"@avolice/shared/*": ["../../packages/shared/src/*"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx"]
 }
