@@ -1,0 +1,10 @@
+{
+	"expo": {
+		"name": "Avolice",
+		"slug": "avolice",
+		"version": "0.0.1",
+		"orientation": "portrait",
+		"scheme": "avolice",
+		"plugins": ["expo-router"]
+	}
+}
