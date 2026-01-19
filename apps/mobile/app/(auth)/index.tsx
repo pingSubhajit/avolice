@@ -1,10 +1,8 @@
 import * as AuthSession from 'expo-auth-session'
-import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
 import {Pressable, View} from 'react-native'
 import {AppText, MonoText} from '../../components/ui/AppText'
 import {Screen} from '../../components/ui/Screen'
-import {setRefreshToken} from '../../lib/auth'
 import {env} from '../../lib/env'
 
 export default function AuthScreen() {
@@ -29,17 +27,7 @@ export default function AuthScreen() {
 		if (result.type !== 'success') {
 			return
 		}
-
-		const parsed = Linking.parse(result.url)
-		const refreshToken = parsed.queryParams?.refreshToken as
-			| string
-			| undefined
-		if (!refreshToken) {
-			throw new Error(
-				`Missing refreshToken in callback URL: ${result.url}`
-			)
-		}
-		await setRefreshToken(refreshToken)
+		// The final redirect is `avolice://auth/callback?...` which Expo Router handles via `app/auth/callback.tsx`.
 	}
 
 	return (

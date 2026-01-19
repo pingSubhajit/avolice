@@ -38,7 +38,30 @@ export async function GET(
 	// For mobile, we want a real browser redirect so the in-app browser navigates to Google/Microsoft.
 	const location = res.headers.get('location')
 	if (location) {
-		return NextResponse.redirect(location, 302)
+		const redirect = NextResponse.redirect(location, 302)
+
+		// IMPORTANT: Preserve Better Auth cookies (OAuth state / PKCE) on our redirect response.
+		// Otherwise `/api/auth/callback/:provider` will fail with `state_mismatch`.
+		const anyHeaders = res.headers as unknown as {
+			getSetCookie?: () => string[]
+		}
+		const setCookies =
+			typeof anyHeaders.getSetCookie === 'function'
+				? anyHeaders.getSetCookie()
+				: []
+
+		if (setCookies.length > 0) {
+			for (const c of setCookies) {
+				redirect.headers.append('set-cookie', c)
+			}
+		} else {
+			const raw = res.headers.get('set-cookie')
+			if (raw) {
+				redirect.headers.set('set-cookie', raw)
+			}
+		}
+
+		return redirect
 	}
 
 	return res
