@@ -54,6 +54,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# generated (Uniwind)
+**/uniwind-types.d.ts
+
 # IDE specifics
 .idea
 .cursor

@@ -18,5 +18,5 @@ config.resolver.unstable_enablePackageExports = true
 
 module.exports = withUniwindConfig(config, {
 	cssEntryFile: './global.css',
-	dtsFile: './app/uniwind-types.d.ts'
+	dtsFile: './uniwind-types.d.ts'
 })

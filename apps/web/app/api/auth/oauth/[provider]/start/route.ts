@@ -24,7 +24,16 @@ export async function POST(
 		return NextResponse.json({error: 'redirectURI_required'}, {status: 400})
 	}
 
-	const ctx = await auth.$context
+	let ctx: Awaited<typeof auth.$context>
+	try {
+		ctx = await auth.$context
+	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e)
+		return NextResponse.json(
+			{error: 'auth_init_failed', message},
+			{status: 500}
+		)
+	}
 	const provider = ctx.socialProviders.find((p) => p.id === providerId)
 	if (!provider) {
 		return NextResponse.json(
@@ -37,11 +46,19 @@ export async function POST(
 	const codeVerifier = randomBase64Url(96)
 	const expiresAt = new Date(Date.now() + 10 * 60 * 1000)
 
-	await ctx.internalAdapter.createVerificationValue({
-		identifier: state,
-		value: JSON.stringify({providerId, codeVerifier, redirectURI}),
-		expiresAt
-	})
+	try {
+		await ctx.internalAdapter.createVerificationValue({
+			identifier: state,
+			value: JSON.stringify({providerId, codeVerifier, redirectURI}),
+			expiresAt
+		})
+	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e)
+		return NextResponse.json(
+			{error: 'oauth_state_persist_failed', message},
+			{status: 500}
+		)
+	}
 
 	const authorizeUrl = await provider.createAuthorizationURL({
 		state,

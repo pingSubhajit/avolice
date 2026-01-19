@@ -10,54 +10,35 @@ export default function AuthScreen() {
 	WebBrowser.maybeCompleteAuthSession()
 
 	async function signIn(provider: 'google' | 'microsoft') {
-		const redirectURI = AuthSession.makeRedirectUri({
+		// Better Auth native flow:
+		// - Browser hits /api/auth/mobile/start/:provider (server sets OAuth cookies and redirects to Google/Microsoft)
+		// - Provider returns to /api/auth/callback/:provider (Better Auth)
+		// - Better Auth redirects to /api/auth/mobile/finish (same browser, cookies present)
+		// - /finish redirects to avolice://auth/callback?refreshToken=...
+		const appReturnUrl = AuthSession.makeRedirectUri({
 			scheme: 'avolice',
 			path: 'auth/callback'
 		})
 
-		const startRes = await fetch(
-			`${env.webBaseUrl}/api/auth/oauth/${provider}/start`,
-			{
-				method: 'POST',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({redirectURI})
-			}
-		)
-
-		if (!startRes.ok) {
-			throw new Error(`Start failed (${startRes.status})`)
-		}
-		const {authorizeUrl} = (await startRes.json()) as {authorizeUrl: string}
-
+		const startUrl = `${env.webBaseUrl}/api/auth/mobile/start/${provider}`
 		const result = await WebBrowser.openAuthSessionAsync(
-			authorizeUrl,
-			redirectURI
+			startUrl,
+			appReturnUrl
 		)
 		if (result.type !== 'success') {
 			return
 		}
 
 		const parsed = Linking.parse(result.url)
-		const code = parsed.queryParams?.code as string | undefined
-		const state = parsed.queryParams?.state as string | undefined
-		if (!code || !state) {
-			throw new Error('Missing code/state')
+		const refreshToken = parsed.queryParams?.refreshToken as
+			| string
+			| undefined
+		if (!refreshToken) {
+			throw new Error(
+				`Missing refreshToken in callback URL: ${result.url}`
+			)
 		}
-
-		const cbRes = await fetch(
-			`${env.webBaseUrl}/api/auth/oauth/${provider}/callback`,
-			{
-				method: 'POST',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({code, state})
-			}
-		)
-
-		if (!cbRes.ok) {
-			throw new Error(`Callback failed (${cbRes.status})`)
-		}
-		const data = (await cbRes.json()) as {refreshToken: string}
-		await setRefreshToken(data.refreshToken)
+		await setRefreshToken(refreshToken)
 	}
 
 	return (
