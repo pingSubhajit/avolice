@@ -9,7 +9,8 @@
 		"start": "turbo start",
 		"lint": "biome check .",
 		"format": "biome format --write .",
-		"typecheck": "turbo typecheck"
+		"typecheck": "turbo typecheck",
+		"remove:deps": "rm -rf node_modules apps/mobile/node_modules packages/*/node_modules"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.0",
