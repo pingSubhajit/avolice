@@ -1,7 +1,8 @@
 import * as AuthSession from 'expo-auth-session'
 import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
-import {Text} from 'react-native'
+import {Pressable, View} from 'react-native'
+import {AppText, MonoText} from '../../components/ui/AppText'
 import {Screen} from '../../components/ui/Screen'
 import {setRefreshToken} from '../../lib/auth'
 import {env} from '../../lib/env'
@@ -42,22 +43,42 @@ export default function AuthScreen() {
 	}
 
 	return (
-		<Screen className="flex-1 justify-center gap-3 bg-black px-6">
-			<Text className="text-3xl text-white">Avolice</Text>
-			<Text className="text-sm text-white/60">Sign in to continue.</Text>
+		<Screen className="flex-1 bg-background px-6">
+			<View className="flex-1 justify-center">
+				<MonoText className="text-xs text-muted-foreground">
+					AVOLICE / v0
+				</MonoText>
+				<AppText className="mt-2 text-4xl font-semibold tracking-tight text-foreground">
+					Avolice
+				</AppText>
+				<AppText className="mt-2 text-sm text-muted-foreground">
+					Sign in to orchestrate your day.
+				</AppText>
 
-			<Text
-				className="mt-6 rounded-xl bg-white px-4 py-3 text-center font-medium text-black"
-				onPress={() => signIn('google')}
-			>
-				Continue with Google
-			</Text>
-			<Text
-				className="rounded-xl bg-white px-4 py-3 text-center font-medium text-black"
-				onPress={() => signIn('microsoft')}
-			>
-				Continue with Microsoft
-			</Text>
+				<View className="mt-8 gap-3">
+					<Pressable
+						className="rounded-2xl bg-primary px-4 py-4"
+						onPress={() => signIn('google')}
+					>
+						<AppText className="text-center font-medium text-primary-foreground">
+							Continue with Google
+						</AppText>
+					</Pressable>
+
+					<Pressable
+						className="rounded-2xl border border-border bg-card px-4 py-4"
+						onPress={() => signIn('microsoft')}
+					>
+						<AppText className="text-center font-medium text-card-foreground">
+							Continue with Microsoft
+						</AppText>
+					</Pressable>
+
+					<AppText className="mt-2 text-center text-xs text-muted-foreground">
+						OAuth-only • Multi-device sessions
+					</AppText>
+				</View>
+			</View>
 		</Screen>
 	)
 }

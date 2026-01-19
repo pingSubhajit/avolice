@@ -1,5 +1,6 @@
 import {routineSchema} from '@avolice/shared'
-import {Text} from 'react-native'
+import {View} from 'react-native'
+import {AppText, MonoText} from '../../components/ui/AppText'
 import {Screen} from '../../components/ui/Screen'
 
 const exampleRoutine = routineSchema.safeParse({
@@ -16,14 +17,22 @@ const exampleRoutine = routineSchema.safeParse({
 
 export default function TodayScreen() {
 	return (
-		<Screen className="flex-1 items-center justify-center bg-black">
-			<Text className="text-xl text-white">Today Plan</Text>
-			<Text className="mt-2 text-sm text-white/60">
-				Timeline placeholder
-			</Text>
-			<Text className="mt-4 text-xs text-white/40">
-				Shared schema: {exampleRoutine.success ? 'ok' : 'error'}
-			</Text>
+		<Screen className="flex-1 bg-background px-6">
+			<View className="flex-1 justify-center">
+				<MonoText className="text-xs text-muted-foreground">
+					TODAY
+				</MonoText>
+				<AppText className="mt-2 text-2xl font-semibold text-foreground">
+					Today plan
+				</AppText>
+				<AppText className="mt-2 text-sm text-muted-foreground">
+					Timeline placeholder
+				</AppText>
+
+				<MonoText className="mt-6 text-xs text-muted-foreground">
+					shared-schema: {exampleRoutine.success ? 'ok' : 'error'}
+				</MonoText>
+			</View>
 		</Screen>
 	)
 }

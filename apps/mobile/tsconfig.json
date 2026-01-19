@@ -9,5 +9,5 @@
 			"@avolice/shared/*": ["../../packages/shared/src/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx"]
+	"include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }
